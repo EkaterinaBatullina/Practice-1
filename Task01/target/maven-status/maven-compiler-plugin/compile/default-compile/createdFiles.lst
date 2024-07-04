@@ -1,0 +1,8 @@
+users/validators/Validator.class
+users/models/User.class
+users/controllers/UsersUIConsole.class
+users/validators/SimpleValidator.class
+users/repositories/UsersRepository.class
+users/repositories/UsersRepositoryFileImpl.class
+users/services/UsersService.class
+a/application/Application.class
