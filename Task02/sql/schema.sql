@@ -1,40 +1,35 @@
-drop table if exists student_course;
-drop table if exists lesson;
-drop table if exists course;
-drop table if exists student;
+drop table if exists client;
+drop table if exists driver;
+drop table if exists auto;
+drop table if exists "order";
 
-create table student (
-                         id serial primary key,
-                         first_name char(20) not null,
-                         last_name char(20) not null,
-                         age integer check (age >= 18 and age < 120)
+create table client(
+                       id serial primary key,
+                       first_name char(20) not null,
+                       last_name char(20) not null
 );
 
-alter table student add email char(20) unique;
+alter table client add age integer check (age >= 7 and age < 120);
 
-create table course (
-                        id serial primary key,
-                        title char(20),
-                        description char(100),
-                        start_date date,
-                        finish_date date
+create table driver(
+                       id serial primary key,
+                       first_name char(20) not null,
+                       last_name char(20) not null
 );
 
---многие к одному - много уроков к одному курсу
-create table lesson (
-                        id serial primary key,
-                        name char(20),
-                        start_time time,
-                        finish_time time,
-                        day_of_week char(20),
-                        course_id integer,
-                        foreign key (course_id) references course(id)
+alter table driver add experience integer check (experience >=0 and experience < 100);
+
+create table auto(
+                     name char(20) not null,
+                     number char(6),
+                     driver_id integer,
+                     foreign key (driver_id) references driver(id)
 );
 
---многие ко многим - между студентами и курсами
-create table student_course(
-                               student_id integer,
-                               course_id integer,
-                               foreign key (student_id) references student(id),
-                               foreign key (course_id) references course(id)
+create table "order"(
+                          start_time time,
+                          client_id integer,
+                          driver_id integer,
+                          foreign key (client_id) references client(id),
+                          foreign key (driver_id) references driver(id)
 );
